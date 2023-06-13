@@ -6,3 +6,17 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+mat-paginator {
+  background-color: transparent !important;
+  color: #64758b !important;
+}
+
+mat-form-field div {
+  background-color: transparent !important;
+  color: #64758b !important;
+}
+mat-option{
+  background-color: transparent !important;
+ }

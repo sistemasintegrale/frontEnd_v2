@@ -1,5 +1,7 @@
 // sidenav transition-burger
 
+var page = window.location.pathname.split("/").pop().split(".")[0];
+var aux = window.location.pathname.split("/");
 var sidenav = document.querySelector("aside");
 var sidenav_trigger = document.querySelector("[sidenav-trigger]");
 var sidenav_close_button = document.querySelector("[sidenav-close]");
@@ -8,6 +10,7 @@ var top_bread = burger.firstElementChild;
 var bottom_bread = burger.lastElementChild;
 
 sidenav_trigger.addEventListener("click", function () {
+  debugger
   if (page == "virtual-reality") {
     sidenav.classList.toggle("xl:left-[18%]");
   }
@@ -39,3 +42,4 @@ window.addEventListener("click", function (e) {
     }
   }
 });
+

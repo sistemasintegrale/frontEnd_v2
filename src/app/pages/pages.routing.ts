@@ -6,6 +6,7 @@ import { ReporteAutosComponent } from './reports/reporte-autos/reporte-autos.com
 import { ReporteMotosComponent } from './reports/reporte-motos/reporte-motos.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { MiCuentaComponent } from './mantenimientos/mi-cuenta/mi-cuenta.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'reporte-historial-motos', component: ReporteMotosComponent, data: { titulo: 'Reportes', subTitulo: 'Historial Motos' } },
       //matenimientos
       { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimientos', subTitulo: 'Usuarios' } },
+      { path: 'mi-perfil', component: MiCuentaComponent, data: { titulo: 'Mantenimientos', subTitulo: 'Mi Perfil' } },
 
 
 

@@ -15,6 +15,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptors';
 
 import locale from "@angular/common/locales/es-PE";
 import { registerLocaleData } from "@angular/common";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 registerLocaleData(locale);
 
@@ -29,7 +30,8 @@ registerLocaleData(locale);
     PagesModule,
     AuthModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

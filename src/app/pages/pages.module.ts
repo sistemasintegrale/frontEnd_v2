@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { ReporteAutosComponent } from './reports/reporte-autos/reporte-autos.component';
 import { ReporteMotosComponent } from './reports/reporte-motos/reporte-motos.component';
+import { MiCuentaComponent } from './mantenimientos/mi-cuenta/mi-cuenta.component';
 
 
 
@@ -34,7 +35,8 @@ import { ReporteMotosComponent } from './reports/reporte-motos/reporte-motos.com
     DashboardComponent,
     ReporteAutosComponent,
     ReporteMotosComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    MiCuentaComponent
   ],
   imports: [
     CommonModule,

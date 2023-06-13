@@ -139,4 +139,15 @@ export class ReporteAutosComponent implements OnInit {
       this.cargando = false;
     });
   }
+
+  async cargarCombos() {
+    if (this.range.get('fechaDesde')?.value === '' || this.range.get('fechaHasta')?.value === '')
+      return;
+    await Promise.all([
+      this.cargarMarca(),
+      this.cargarModelo(),
+      this.cargarPlaca(),
+      this.cargarOR(),
+    ]);
+  }
 }

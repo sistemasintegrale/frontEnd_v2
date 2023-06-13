@@ -41,8 +41,14 @@ export class SideBarService {
         {
           titulo: 'Usuarios',
           url: 'usuarios',
-          icono: 'ni ni-single-02',
+          icono: 'fas fa-users',
           color: 'text-cyan-500'
+        },
+        {
+          titulo: 'Mi Perfil',
+          url: 'mi-perfil',
+          icono: 'fas fa-user',
+          color: 'text-red-500'
         }
       ]
     }

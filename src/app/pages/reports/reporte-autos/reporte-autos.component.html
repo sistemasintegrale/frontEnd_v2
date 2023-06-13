@@ -9,7 +9,7 @@
         <div class="grid gap-4 grid-cols-7" [formGroup]="range">
 
           <div class="relative h-10 w-full min-w-[150px]">
-            <input type="date" formControlName="fechaDesde"
+            <input type="date" formControlName="fechaDesde" (change)="cargarCombos()"
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               placeholder=" " />
             <label
@@ -19,7 +19,7 @@
           </div>
 
           <div class="relative h-10 w-full min-w-[150px]">
-            <input type="date" formControlName="fechaHasta"
+            <input type="date" formControlName="fechaHasta" (change)="cargarCombos()"
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               placeholder=" " />
             <label
@@ -96,7 +96,7 @@
 <div class="flex flex-wrap -mx-3 ">
   <div class="flex-none w-full max-w-full px-3 ">
     <div
-      class="h-[42.5vw] relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+      class="h-auto relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
       <div class="p-6">
         <div class="overflow-auto rounded-lg shadow">
           <table class="w-full">
@@ -120,19 +120,19 @@
             </thead>
             <tbody>
               <tr class="dark:bg-slate-850 " *ngFor="let item of reporte">
-                <td class="whitespace-nowrap px-4 py-3 dark:text-white">{{item.placa}}</td>
-                <td class="whitespace-nowrap px-4 py-3 dark:text-white">{{item.nombreCliente}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.marca}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.modelo}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.numeroOrden}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.situacion}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.numeroDocumento}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.fechaOrden}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.descripcionTipoServicio}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.kilometraje}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.cantidad}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{item.descripcionServicio}}</td>
-                <td class="whitespace-nowrap px-5 py-3 dark:text-white">{{ item.codigoMoneda == 4?
+                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.placa}}</td>
+                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.nombreCliente}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.marca}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.modelo}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.numeroOrden}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.situacion}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.numeroDocumento}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.fechaOrden}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.descripcionTipoServicio}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.kilometraje}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.cantidad}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.descripcionServicio}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{ item.codigoMoneda == 4?
                   (item.precioTotalItem| currency: '')
                   :(item.precioTotalItem|currency: 'PEN': 'symbol': '': 'es-PE'
                   )}}</td>
@@ -141,7 +141,8 @@
           </table>
 
         </div>
-        <mat-paginator [length]="totalReporte" [pageSizeOptions]="[10, 50, 100]" (page)="getPaginationData($event)">
+        <mat-paginator [length]="totalReporte" [pageSizeOptions]="[10, 50, 100]" (page)="getPaginationData($event)"
+          class="bg-red-500">
         </mat-paginator>
       </div>
     </div>
