@@ -1,1 +1,103 @@
-<p>usuarios works!</p>
+<div class="flex flex-wrap -mx-3">
+    <div class="flex-none w-full max-w-full px-3">
+        <div
+            class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="p-5 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                <h6 class="dark:text-white font-semibold">Criterios de Búsqueda
+                    :</h6>
+            </div>
+            <div class="p-5">
+                <div class="grid gap-4 grid-cols-7">
+
+                    <div class="relative h-10 w-full min-w-[150px]">
+                        <input type="text"
+                            class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            placeholder=" " />
+                        <label
+                            class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-indigo-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-indigo-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-indigo-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Nombre Usuario :
+                        </label>
+                    </div>
+
+                    <div class="relative h-10 w-full min-w-[150px]">
+                        <button (click)="cargarUsuarios()" [disabled]="cargando"
+                            class="h-full flex select-none items-center gap-3 rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="button" data-ripple-light="true">
+                            <div
+                                class="mr-1 flex h-4 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            {{cargando ? 'Cargando...':'Buscar'}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-wrap -mx-3 ">
+    <div class="flex-none w-full max-w-full px-3 ">
+        <div
+            class="h-auto relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="p-6">
+                <div class="flex justify-between mb-3">
+                    <div class="flex items-center flex-none max-w-full px-3">
+                        <h6 class="dark:text-white font-bold">Usuarios Registrados :</h6>
+                    </div>
+                    <div class="flex-none max-w-full px-3 text-right">
+                            <button (click)="openAdd()"
+                            class="h-full flex select-none items-center rounded-lg bg-blue-500 py-2 pr-4 pl-2 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="button" data-ripple-light="true">
+                            <div
+                                class=" flex h-4 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            Nuevo
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-auto rounded-lg shadow">
+                    <table class="w-full">
+                        <thead class="bg-violet-100 border-b-1 border-indigo-200 dark:bg-violet-950 ">
+                            <tr>
+                                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Nombre
+                                </th>
+                                <th class="p-3 text-sm font-semibold tracking-wide text-center dark:text-white">
+                                    Apellidos</th>
+                                <th class="p-3 text-sm font-semibold tracking-wide text-center dark:text-white">Corre
+                                </th>
+                                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Estado
+                                </th>
+                                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="dark:bg-slate-850 " *ngFor="let item of usuarios">
+                                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.nombre}}</td>
+                                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.apellidos}}</td>
+                                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.email}}</td>
+                                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.estado}}</td>
+                                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">
+                                    <button mat-icon-button color="primary"
+                                        matTooltip="Editar usuario {{ item.nombre }}" (click)="openEdit(item)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" matTooltip="Eliminar usuario {{ item.nombre }}"
+                                        (click)="eliminarUsuario(item)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <mat-paginator [length]="totalUsuarios" [pageSizeOptions]="[10, 50, 100]"
+                    (page)="getPaginationData($event)" class="bg-red-500">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

@@ -115,9 +115,39 @@ export class ReporteAutosComponent implements OnInit {
       )
   }
 
+  buscar(){
+    this.paginator.pageIndex = 0;
+    this.desde = 0;
+    this.hasta = 10;
+    this.cargarReporte();
+  }
+
   cargarReporte() {
-    debugger;
+    
     this.cargando = true;
+    this.getFilters();
+    this.reporteService.cargarReporteHistorial(this.filters, this.service).subscribe((resp) => {
+      this.reporte = resp.data.data;
+      this.totalReporte = resp.cantidad;
+      this.cargando = false;
+    });
+  }
+
+  async cargarCombos() {
+    if (this.range.get('fechaDesde')?.value === '' || this.range.get('fechaHasta')?.value === '')
+      return;
+    this.getFilters();
+
+    await Promise.all([
+      this.cargarMarca(),
+      this.cargarModelo(),
+      this.cargarPlaca(),
+      this.cargarOR(),
+    ]);
+  }
+
+  getFilters() {
+ 
     this.filters.desde = this.desde;
     this.filters.hasta = this.hasta;
     this.filters.fechaDesde = moment(this.range.value.fechaDesde).format(
@@ -131,23 +161,5 @@ export class ReporteAutosComponent implements OnInit {
     this.filters.placa = this.range.value.placa;
     this.filters.orden = this.range.value.orden;
 
-
-    console.log(this.filters)
-    this.reporteService.cargarReporteHistorial(this.filters, this.service).subscribe((resp) => {
-      this.reporte = resp.data.data;
-      this.totalReporte = resp.cantidad;
-      this.cargando = false;
-    });
-  }
-
-  async cargarCombos() {
-    if (this.range.get('fechaDesde')?.value === '' || this.range.get('fechaHasta')?.value === '')
-      return;
-    await Promise.all([
-      this.cargarMarca(),
-      this.cargarModelo(),
-      this.cargarPlaca(),
-      this.cargarOR(),
-    ]);
   }
 }

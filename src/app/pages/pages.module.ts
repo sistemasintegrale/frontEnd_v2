@@ -26,6 +26,7 @@ import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { ReporteAutosComponent } from './reports/reporte-autos/reporte-autos.component';
 import { ReporteMotosComponent } from './reports/reporte-motos/reporte-motos.component';
 import { MiCuentaComponent } from './mantenimientos/mi-cuenta/mi-cuenta.component';
+import { UserDialogComponent } from './mantenimientos/usuarios/dialog/user-dialog/user-dialog.component';
 
 
 
@@ -36,7 +37,8 @@ import { MiCuentaComponent } from './mantenimientos/mi-cuenta/mi-cuenta.componen
     ReporteAutosComponent,
     ReporteMotosComponent,
     UsuariosComponent,
-    MiCuentaComponent
+    MiCuentaComponent,
+    UserDialogComponent
   ],
   imports: [
     CommonModule,

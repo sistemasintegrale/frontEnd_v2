@@ -6,7 +6,9 @@ export class UsuarioData {
     public email: string,
     public password: string,
     public estado: boolean,
-    public token: string
+    public token: string,
+    public codigoClienteNG : number,
+    public codigoClienteNM : number,
   ) { };
 
 

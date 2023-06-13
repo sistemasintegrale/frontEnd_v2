@@ -16,8 +16,17 @@ export class SidebarComponent {
   constructor(private sideBarService: SideBarService,
     private usuarioService: AuthService,
     private router: Router) {
-    this.menuItems = sideBarService.menu;
-    this.usuario = usuarioService.usuario;
+      this.usuario = usuarioService.usuario;
+     
+      debugger
+      if (this.usuario.id == 1) {
+        this.menuItems = sideBarService.menu
+      }else{
+        this.menuItems = sideBarService.menu_user
+      }
+
+    
+    
   }
   ngOnInit(): void {
 
