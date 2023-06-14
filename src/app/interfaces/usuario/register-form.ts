@@ -5,5 +5,7 @@ export interface RegisterForm {
   password: string,
   password2: string,
   terminos: boolean,
-  estado: boolean
+  estado: boolean,
+  codigoClienteNG: number,
+  codigoClienteNM: number,
 }

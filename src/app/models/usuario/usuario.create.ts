@@ -4,6 +4,8 @@ export class UsuarioCreate {
     public apellidos: string,
     public email: string,
     public password: string,
-    public estado: boolean
+    public estado: boolean,
+    public codigoClienteNG : number,
+    public codigoClienteNM : number,
   ) { }
 }

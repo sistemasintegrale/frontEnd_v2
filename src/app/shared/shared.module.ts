@@ -6,6 +6,10 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { ConfigurationsComponent } from './configurations/configurations.component';
 import { FooterComponent } from './footer/footer.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -15,18 +19,24 @@ import { FooterComponent } from './footer/footer.component';
     SidebarComponent,
     HeaderComponent,
     ConfigurationsComponent,
-    FooterComponent
+    FooterComponent,
+    SpinnerComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
     ConfigurationsComponent,
-    FooterComponent
+    FooterComponent,
+    SpinnerComponent,
+    ChangePasswordComponent
   ]
 })
 export class SharedModule { }
