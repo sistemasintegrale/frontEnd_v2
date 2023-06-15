@@ -8,7 +8,7 @@
       <div class="py-5 px-36">
         <form class="flex w-full flex-col gap-6 pt-2" autocomplete="off" [formGroup]="registerForm">
           <div class="relative h-10 w-full min-w-[200px]">
-            <input formControlName="nombre"
+            <input formControlName="nombre" readonly="true"
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               placeholder=" " />
             <label
@@ -17,7 +17,7 @@
             </label>
           </div>
           <div class="relative h-10 w-full min-w-[200px]">
-            <input formControlName="apellidos"
+            <input formControlName="apellidos" readonly="true"
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               placeholder=" " />
             <label
@@ -26,7 +26,7 @@
             </label>
           </div>
           <div class="relative h-10 w-full min-w-[200px]">
-            <input formControlName="email"
+            <input formControlName="email" readonly="true"
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               placeholder=" " />
             <label
@@ -44,7 +44,7 @@
             </label>
           </div>
           <div class="hidden relative h-10 w-full min-w-[200px]">
-            <select formControlName="estado"
+            <select formControlName="estado" 
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-indigo-500 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
               <option *ngFor="let item of estados" [value]="item.value">{{item.descripcion}}</option>
             </select>

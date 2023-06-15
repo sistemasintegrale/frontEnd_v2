@@ -19,4 +19,7 @@ export class HistorialService {
   cargarReporteHistorial(filters: ReporteHistorialFilters, service: number): Observable<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>> {
     return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte/${service}`, filters);
   }
+  cargarReporteHistorialExcel(filters: ReporteHistorialFilters, service: number): Observable<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>> {
+    return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte/excel/${service}`, filters);
+  }
 }

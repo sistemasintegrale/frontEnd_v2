@@ -21,17 +21,17 @@ export class ChangePasswordComponent {
       pass2: new FormControl('', [Validators.required]),
       newPass1: new FormControl('', [Validators.required]),
       newPass2: new FormControl('', [Validators.required]),
-    },{
-      validators : [this.passAntiguosIguales(),this.passNuevoIguales()]
-    }); 
+    }, {
+      validators: [this.passAntiguosIguales(), this.passNuevoIguales()]
+    });
 
   }
 
-  passAntiguosIguales(){
+  passAntiguosIguales() {
     return (formGroup: FormGroup) => {
       const pass1Control = formGroup.get('pass1');
       const pass2Control = formGroup.get('pass2');
-      if (pass1Control === pass2Control) {
+      if (pass1Control?.value === pass2Control?.value) {
         pass2Control?.setErrors(null);
       } else {
         pass2Control?.setErrors({ noEsIgual: true });
@@ -39,11 +39,11 @@ export class ChangePasswordComponent {
     }
   }
 
-  passNuevoIguales(){
+  passNuevoIguales() {
     return (formGroup: FormGroup) => {
       const pass1Control = formGroup.get('newPass1');
       const pass2Control = formGroup.get('newPass2');
-      if (pass1Control === pass2Control) {
+      if (pass1Control?.value === pass2Control?.value) {
         pass2Control?.setErrors(null);
       } else {
         pass2Control?.setErrors({ noEsIgual: true });
@@ -66,18 +66,15 @@ export class ChangePasswordComponent {
     const val = this.registerForm.get(campo)?.invalid! && this.formSubmitted;
     return val;
   }
-  campoNoValidoPass2(){
-    
-    const val = this.registerForm.get('newPass2')?.invalid! && this.formSubmitted;
-    return val;
-  }
+   
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close({update :false});
   }
 
   save() {
     this.formSubmitted = true;
     if (this.registerForm.invalid)
       return;
+      this.dialogRef.close({update :true, newPasss :  this.registerForm.get('newPass1')?.value});
   }
 }

@@ -90,8 +90,41 @@ export class MiCuentaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.ngOnInit()
+      debugger
+      if (result.update) {
+        const data: RegisterForm = {
+          nombre: this.registerForm.controls.nombre.value!,
+          apellidos: this.registerForm.controls.apellidos.value!,
+          email: this.registerForm.controls.email.value!,
+          password: result.newPasss,
+          password2: result.newPasss,
+          terminos: true,
+          estado: this.registerForm.controls.estado.value!,
+          codigoClienteNG: this.registerForm.controls.codigoClienteNG.value!,
+          codigoClienteNM: this.registerForm.controls.codigoClienteNM.value!,
+        }
+    
+        this.usuarioService
+          .modificarUsuario(data, this.usuario.id)
+          .subscribe({
+            next: ((data) => {
+              this.usuarioService.getUsuario(this.authservice.usuario.id)
+                .subscribe({
+                  next: (data => {
+                    this.usuario = data.data;
+                    this.cargar()
+                  })
+                });
+              if (data.isSucces) {
+                Swal.fire(
+                  'Usuario modificado',
+                  `Usuario ${data.data.nombre} fué modificado correctamente`,
+                  'success'
+                );
+              }
+            })
+          }
+          );
       }
     })
   }
