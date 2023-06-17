@@ -11,6 +11,7 @@ import { ReporteHistorialResponse } from 'src/app/models/reporte-historial/repor
 import { PaginatorLabelService } from 'src/app/services/custom/paginator-label.service';
 import { HistorialService } from 'src/app/services/reports/historial.service';
 import { SelectsService } from 'src/app/services/reports/selects.service';
+import { ExcelService } from 'src/app/services/shared/excel.service';
 import { environment } from 'src/environments/environments';
 
 @Component({
@@ -33,11 +34,13 @@ export class ReporteMotosComponent {
   @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
   public cargando: boolean = false;
   public cantidadRequeridaAnt: number = 10;
+  public cargandoExcel = false;
   constructor(
     private reporteService: HistorialService,
     private fb: FormBuilder,
     private customPaginatorLabel: PaginatorLabelService,
-    private selectService: SelectsService
+    private selectService: SelectsService,
+    private excelService : ExcelService
   ) { }
   ngOnInit(): void {
     this.customPaginatorLabel.translateMatPaginator(this.paginator);
@@ -161,5 +164,16 @@ export class ReporteMotosComponent {
     this.filters.placa = this.range.value.placa;
     this.filters.orden = this.range.value.orden;
 
+  }
+ 
+  exportarExcel(){  
+    this.cargandoExcel = true;
+    this.getFilters();
+    this.reporteService.cargarReporteHistorialExcel(this.filters, this.service)
+    .subscribe(resp =>{
+      this.excelService.exportAsExcelFile(resp,'Resporte Historial Motos');
+      this.cargandoExcel = false;
+    });
+    
   }
 }

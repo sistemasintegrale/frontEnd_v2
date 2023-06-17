@@ -30,6 +30,7 @@ export class ReporteAutosComponent implements OnInit {
   public totalReporte: number = 0;
   public desde: number = 0;
   public hasta: number = 10;
+  public cargandoExcel = false;
   service = environment.CONN_NOVAGLASS;
   @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
   public cargando: boolean = false;
@@ -163,16 +164,15 @@ export class ReporteAutosComponent implements OnInit {
     this.filters.orden = this.range.value.orden;
 
   }
-
-  exportarExcel(){
-
+ 
+  exportarExcel(){  
+    this.cargandoExcel = true;
     this.getFilters();
-    this.reporteService.cargarReporteHistorialExcel(this.filters, this.service).subscribe((resp) => {
-      this.reporte = resp.data.data;
-      this.totalReporte = resp.cantidad;
-      this.cargando = false;
+    this.reporteService.cargarReporteHistorialExcel(this.filters, this.service)
+    .subscribe(resp =>{
+      this.excelService.exportAsExcelFile(resp,'Resporte Historial Motos');
+      this.cargandoExcel = false;
     });
-
-    this.excelService.exportAsExcelFile(this.reporte,'Resporte Historial Autos');
+    
   }
 }
