@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
+import { OrdenReparacionList } from 'src/app/interfaces/orden-reparacion/orden-reparacion';
 import { Marca } from 'src/app/interfaces/reporte-historial/marca';
 import { Modelo } from 'src/app/interfaces/reporte-historial/modelo';
 import { OrdenReparacion } from 'src/app/interfaces/reporte-historial/or';
@@ -9,6 +10,7 @@ import { Placa } from 'src/app/interfaces/reporte-historial/placa';
 import { ReporteHistorialFilters } from 'src/app/interfaces/reporte-historial/reporte-historial-filters';
 import { ReporteHistorialResponse } from 'src/app/models/reporte-historial/reporte-historial-response';
 import { PaginatorLabelService } from 'src/app/services/custom/paginator-label.service';
+import { OrdenReparacionService } from 'src/app/services/orden-reparacion/orden-reparacion.service';
 import { HistorialService } from 'src/app/services/reports/historial.service';
 import { SelectsService } from 'src/app/services/reports/selects.service';
 import { ExcelService } from 'src/app/services/shared/excel.service';
@@ -20,7 +22,7 @@ import { environment } from 'src/environments/environments';
   styleUrls: ['./reporte-motos.component.css']
 })
 export class ReporteMotosComponent {
-  public reporte: ReporteHistorialResponse[] = [];
+  public reporte: OrdenReparacionList[] = [];
   public marcas: Marca[] = [];
   public modelos: Modelo[] = [];
   public placas: Placa[] = [];
@@ -37,6 +39,7 @@ export class ReporteMotosComponent {
   public cargandoExcel = false;
   constructor(
     private reporteService: HistorialService,
+    private ordenReparacionservice : OrdenReparacionService,
     private fb: FormBuilder,
     private customPaginatorLabel: PaginatorLabelService,
     private selectService: SelectsService,
@@ -121,7 +124,7 @@ export class ReporteMotosComponent {
   buscar(){
     this.paginator.pageIndex = 0;
     this.desde = 0;
-    this.hasta = 10;
+    this.hasta = this.paginator.pageSize;;
     this.cargarReporte();
   }
 
@@ -129,7 +132,8 @@ export class ReporteMotosComponent {
     
     this.cargando = true;
     this.getFilters();
-    this.reporteService.cargarReporteHistorial(this.filters, this.service).subscribe((resp) => {
+    this.ordenReparacionservice.getOrdenReparacion(this.filters, this.service).subscribe((resp) => {
+      debugger;
       this.reporte = resp.data.data;
       this.totalReporte = resp.cantidad;
       this.cargando = false;

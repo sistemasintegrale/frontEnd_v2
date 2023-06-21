@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/mantenimientos/usuario.service'
 import Swal from 'sweetalert2';
 import { UserDialogComponent } from './dialog/user-dialog/user-dialog.component';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -21,8 +22,11 @@ export class UsuariosComponent {
   public nombre: string = '';
   public cantidadRegistros: number = 10;
 
-  constructor(private usuarioService: UsuarioService,
-    public dialog: MatDialog) { }
+  constructor(
+    private usuarioService: UsuarioService,
+    public dialog: MatDialog,
+    public authService : AuthService
+    ) { }
   ngOnInit(): void {
     this.cargarUsuarios();
   }

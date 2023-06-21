@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Cliente } from 'src/app/interfaces/reporte-historial/cliente';
 import { UsuarioData } from 'src/app/models/usuario/usuario-data';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UsuarioService } from 'src/app/services/mantenimientos/usuario.service';
 import { ClienteService } from 'src/app/services/reports/cliente.service';
 import Swal from 'sweetalert2';
@@ -12,28 +13,28 @@ import Swal from 'sweetalert2';
   templateUrl: './user-dialog.component.html',
   styleUrls: ['./user-dialog.component.css']
 })
-export class UserDialogComponent implements OnInit{
+export class UserDialogComponent implements OnInit {
 
-  public verPassword : boolean = false;
+  public verPassword: boolean = false;
   public titulo = '';
   public formSubmitted = false;
   public registerForm!: FormGroup;
-  public clientesNG! : Cliente[];
-  public clientesNM! : Cliente[];
-
+  public clientesNG!: Cliente[];
+  public clientesNM!: Cliente[];
+  public admin!: boolean;
 
 
   constructor(
-    private fb: FormBuilder,
     public dialogRef: MatDialogRef<UserDialogComponent>,
     public usuarioService: UsuarioService,
     public snackBar: MatSnackBar,
-    private clienteservice : ClienteService,
+    private clienteservice: ClienteService,
+    public authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public usuario: UsuarioData
   ) {
     if (this.usuario !== null) {
       this.titulo = 'Modificar usuario ' + this.usuario.nombre;
-    }else{
+    } else {
       this.titulo = 'Nuevo usuario';
 
     }
@@ -47,25 +48,26 @@ export class UserDialogComponent implements OnInit{
 
 
     this.registerForm = new FormGroup({
-      nombre: new FormControl(this.usuario?this.usuario.nombre:'',[Validators.required]),
-      apellidos: new FormControl(this.usuario?this.usuario.apellidos:'',[Validators.required]),
-      email: new FormControl(this.usuario?this.usuario.email:'',[Validators.required,Validators.email]),
-      password: new FormControl(this.usuario?this.usuario.password:'',[Validators.required]),
-      estado: new FormControl(this.usuario?this.usuario.estado:true,[Validators.required]),
-      codigoClienteNG: new FormControl(this.usuario?this.usuario.codigoClienteNG:0),
-      codigoClienteNM: new FormControl(this.usuario?this.usuario.codigoClienteNM:0), 
+      nombre: new FormControl(this.usuario ? this.usuario.nombre : '', [Validators.required]),
+      apellidos: new FormControl(this.usuario ? this.usuario.apellidos : '', [Validators.required]),
+      email: new FormControl(this.usuario ? this.usuario.email : '', [Validators.required, Validators.email]),
+      password: new FormControl(this.usuario ? this.usuario.password : '', [Validators.required]),
+      estado: new FormControl(this.usuario ? this.usuario.estado : true, [Validators.required]),
+      codigoClienteNG: new FormControl(this.usuario ? this.usuario.codigoClienteNG : 0),
+      codigoClienteNM: new FormControl(this.usuario ? this.usuario.codigoClienteNM : 0),
+      rol: new FormControl(this.usuario ? this.usuario.rol : ''),
     });
   }
   public estados = [
-    {value : true, descripcion : 'Activo'},{value : false, descripcion : 'Inactivo'}
+    { value: true, descripcion: 'Activo' }, { value: false, descripcion: 'Inactivo' }
   ]
 
-  cargarClienteNM(){
+  cargarClienteNM() {
     this.clienteservice.ClientesNovaMotos().subscribe(res => {
       this.clientesNM = res.data;
     });
   }
-  cargarClienteNG(){
+  cargarClienteNG() {
     this.clienteservice.ClientesNovaGlass().subscribe(res => {
       this.clientesNG = res.data;
     });
@@ -76,40 +78,47 @@ export class UserDialogComponent implements OnInit{
   }
 
   addUsuario() {
+    // this.registerForm.patchValue({
+    //   rol: this.admin ? 'ADMIN' : ''
+    // });
     this.formSubmitted = true;
     if (this.registerForm.invalid)
       return;
     this.usuarioService.crearUsuario(this.registerForm.value)
-    .subscribe({
-      next:((data) =>{
-        if (data.isSucces) {
-          this.dialogRef.close(true);
-          Swal.fire(
-            'Usuario Creado',
-            `Usuario ${data.data.nombre} fué creado correctamente`,
-            'success'
+      .subscribe({
+        next: ((data) => {
+          if (data.isSucces) {
+            this.dialogRef.close(true);
+            Swal.fire(
+              'Usuario Creado',
+              `Usuario ${data.data.nombre} fué creado correctamente`,
+              'success'
             );
-        }
-      })
-    }
-    );
+          }
+        })
+      }
+      );
   }
 
   editUsuario() {
+    // debugger;
+    // this.registerForm.patchValue({
+    //   rol: this.admin ? 'ADMIN' : ''
+    // });
     this.formSubmitted = true;
     if (this.registerForm.invalid)
       return;
     this.usuarioService
       .modificarUsuario(this.registerForm.value, this.usuario.id)
       .subscribe({
-        next:((data) =>{
+        next: ((data) => {
           if (data.isSucces) {
             this.dialogRef.close(true);
             Swal.fire(
               'Usuario modificado',
               `Usuario ${data.data.nombre} fué modificado correctamente`,
               'success'
-              );
+            );
           }
         })
       }
@@ -122,12 +131,12 @@ export class UserDialogComponent implements OnInit{
 
 
 
-  cambiarTipo(valor : boolean){
-    let elemento :any = document.getElementById('contraseña');
+  cambiarTipo(valor: boolean) {
+    let elemento: any = document.getElementById('contraseña');
     this.verPassword = valor;
     if (valor) {
       elemento.type = "text";
-    }else{
+    } else {
       elemento.type = "password";
     }
 

@@ -9,6 +9,7 @@ export class UsuarioData {
     public token: string,
     public codigoClienteNG : number,
     public codigoClienteNM : number,
+    public rol : string
   ) { };
 
 

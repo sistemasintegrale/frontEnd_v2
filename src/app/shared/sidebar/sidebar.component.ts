@@ -17,7 +17,7 @@ export class SidebarComponent {
     private usuarioService: AuthService,
     private router: Router) {
       this.usuario = usuarioService.usuario;
-      if (this.usuario.id == 1) {
+      if (this.usuario.rol == "SISTEMA" || this.usuario.rol == "ADMIN") {
         this.menuItems = sideBarService.menu
       }else{
         this.menuItems = sideBarService.menu_user

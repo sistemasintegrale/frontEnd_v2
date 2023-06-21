@@ -107,6 +107,9 @@
     </div>
   </div>
 </div>
+<!---------------------------------------------------------------------------------------------->
+<!---------------------------------------------- Tabla ----------------------------------------->
+<!---------------------------------------------------------------------------------------------->
 
 <div class="flex flex-wrap -mx-3 ">
   <div class="flex-none w-full max-w-full px-3 ">
@@ -117,40 +120,34 @@
           <table class="w-full">
             <thead class="bg-violet-100 border-b-1 border-indigo-200 dark:bg-violet-950 ">
               <tr>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Placa</th>
-                <th class="p-3 text-sm font-semibold tracking-wide text-center dark:text-white">Nombre Cliente</th>
-                <th class="p-3 text-sm font-semibold tracking-wide text-center dark:text-white">Marca</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Modelo</th>
                 <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Numero Orden</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Situación</th>
+                <th class="p-3 text-sm font-semibold tracking-wide text-center dark:text-white">Fecha Orden</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Cliente</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Placa</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Marca</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Modelo</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Año</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Situacion</th>
                 <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Número Documento</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Fecha Orden</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Tipo Servicio</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Kilometraje</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Cantidad</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Descripción Servicio
-                </th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Precio Total</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Fecha Doc</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Orden de Compra</th>
+                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Importe</th>
               </tr>
             </thead>
             <tbody>
               <tr class="dark:bg-slate-850 " *ngFor="let item of reporte">
-                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.placa}}</td>
-                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.nombreCliente}}</td>
+                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.numeroOrden}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.fechaOrden}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.cliente}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.placa}}</td>
                 <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.marca}}</td>
                 <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.modelo}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.numeroOrden}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.anio}}</td>
                 <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.situacion}}</td>
                 <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.numeroDocumento}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.fechaOrden}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.descripcionTipoServicio}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.kilometraje}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.cantidad}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.descripcionServicio}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{ item.codigoMoneda == 4?
-                  (item.precioTotalItem| currency: '')
-                  :(item.precioTotalItem|currency: 'PEN': 'symbol': '': 'es-PE'
-                  )}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.fechaDocumento}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.ordenCompra}}</td>
+                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.importe}}</td>
               </tr>
             </tbody>
           </table>
