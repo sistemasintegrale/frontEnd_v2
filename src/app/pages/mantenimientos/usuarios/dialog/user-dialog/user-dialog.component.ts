@@ -22,7 +22,9 @@ export class UserDialogComponent implements OnInit {
   public clientesNG!: Cliente[];
   public clientesNM!: Cliente[];
   public admin!: boolean;
-
+  public estados = [
+    { value: true, descripcion: 'Activo' }, { value: false, descripcion: 'Inactivo' }
+  ]
 
   constructor(
     public dialogRef: MatDialogRef<UserDialogComponent>,
@@ -41,26 +43,25 @@ export class UserDialogComponent implements OnInit {
   }
   async ngOnInit() {
 
-    await Promise.all([
-      this.cargarClienteNG(),
-      this.cargarClienteNM()
-    ])
+    
 
 
     this.registerForm = new FormGroup({
       nombre: new FormControl(this.usuario ? this.usuario.nombre : '', [Validators.required]),
       apellidos: new FormControl(this.usuario ? this.usuario.apellidos : '', [Validators.required]),
-      email: new FormControl(this.usuario ? this.usuario.email : '', [Validators.required, Validators.email]),
+      email: new FormControl(this.usuario ? this.usuario.email : ''),
       password: new FormControl(this.usuario ? this.usuario.password : '', [Validators.required]),
       estado: new FormControl(this.usuario ? this.usuario.estado : true, [Validators.required]),
       codigoClienteNG: new FormControl(this.usuario ? this.usuario.codigoClienteNG : 0),
       codigoClienteNM: new FormControl(this.usuario ? this.usuario.codigoClienteNM : 0),
-      rol: new FormControl(this.usuario ? this.usuario.rol : ''),
+      admin: new FormControl(this.usuario ? this.usuario.admin : false),
     });
+    await Promise.all([
+      this.cargarClienteNG(),
+      this.cargarClienteNM()
+    ])
   }
-  public estados = [
-    { value: true, descripcion: 'Activo' }, { value: false, descripcion: 'Inactivo' }
-  ]
+ 
 
   cargarClienteNM() {
     this.clienteservice.ClientesNovaMotos().subscribe(res => {
@@ -78,9 +79,6 @@ export class UserDialogComponent implements OnInit {
   }
 
   addUsuario() {
-    // this.registerForm.patchValue({
-    //   rol: this.admin ? 'ADMIN' : ''
-    // });
     this.formSubmitted = true;
     if (this.registerForm.invalid)
       return;
@@ -101,10 +99,6 @@ export class UserDialogComponent implements OnInit {
   }
 
   editUsuario() {
-    // debugger;
-    // this.registerForm.patchValue({
-    //   rol: this.admin ? 'ADMIN' : ''
-    // });
     this.formSubmitted = true;
     if (this.registerForm.invalid)
       return;
@@ -142,4 +136,5 @@ export class UserDialogComponent implements OnInit {
 
   }
 
+   
 }

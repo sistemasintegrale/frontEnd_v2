@@ -7,5 +7,6 @@ export class UsuarioCreate {
     public estado: boolean,
     public codigoClienteNG : number,
     public codigoClienteNM : number,
+    public admin : boolean
   ) { }
 }

@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { UserDialogComponent } from './dialog/user-dialog/user-dialog.component';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ClienteService } from 'src/app/services/reports/cliente.service';
+import { Cliente } from 'src/app/interfaces/reporte-historial/cliente';
 
 @Component({
   selector: 'app-usuarios',
@@ -21,16 +23,31 @@ export class UsuariosComponent {
   public filters = {} as UsuarioFilters;
   public nombre: string = '';
   public cantidadRegistros: number = 10;
-
+  public clientesNG!: Cliente[];
+  public clientesNM!: Cliente[];
   constructor(
     private usuarioService: UsuarioService,
     public dialog: MatDialog,
-    public authService : AuthService
-    ) { }
-  ngOnInit(): void {
+    public authService: AuthService,
+    private clienteservice: ClienteService,
+  ) { }
+  async ngOnInit() {
     this.cargarUsuarios();
+    await Promise.all([
+      this.cargarClienteNG(),
+      this.cargarClienteNM()
+    ])
   }
-
+  cargarClienteNM() {
+    this.clienteservice.ClientesNovaMotos().subscribe(res => {
+      this.clientesNM = res.data;
+    });
+  }
+  cargarClienteNG() {
+    this.clienteservice.ClientesNovaGlass().subscribe(res => {
+      this.clientesNG = res.data;
+    });
+  }
   cargarUsuarios() {
     this.filters.cantidadRegistros = this.cantidadRegistros;
     this.filters.desde = this.desde;
@@ -58,7 +75,7 @@ export class UsuariosComponent {
   }
 
   getPaginationData(event: PageEvent): PageEvent {
-    
+
     return event;
   }
 
@@ -84,13 +101,14 @@ export class UsuariosComponent {
   }
 
   openEdit(usuario: UsuarioData) {
-    debugger;
+    if (usuario.id === 1 && this.authService.usuario.id != 1)
+      return;
+
     this.usuarioService.getUsuario(usuario.id)
       .subscribe({
         next: ((data) => {
-          debugger
           usuario.password = data.data.password
-          const dialogRef = this.dialog.open(UserDialogComponent, {
+          this.dialog.open(UserDialogComponent, {
             disableClose: false,
             width: '400px',
             data: usuario
@@ -104,6 +122,8 @@ export class UsuariosComponent {
   }
 
   eliminarUsuario(usuario: UsuarioData) {
+    if (usuario.id === 1 && this.authService.usuario.id != 1)
+      return;
     Swal.fire({
       title: '¿Borrar usuario?',
       text: `Esta apunto de borrar a ${usuario.nombre}`,

@@ -13,5 +13,6 @@ export interface OrdenReparacionList {
     numeroDocumento : string,
     fechaDocumento : string,
     ordenCompra : string,   
-    importe : number
+    importe : number,
+    moneda : string
 }

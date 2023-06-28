@@ -8,13 +8,13 @@ import { Modelo } from 'src/app/interfaces/reporte-historial/modelo';
 import { OrdenReparacion } from 'src/app/interfaces/reporte-historial/or';
 import { Placa } from 'src/app/interfaces/reporte-historial/placa';
 import { ReporteHistorialFilters } from 'src/app/interfaces/reporte-historial/reporte-historial-filters';
-import { ReporteHistorialResponse } from 'src/app/models/reporte-historial/reporte-historial-response';
 import { PaginatorLabelService } from 'src/app/services/custom/paginator-label.service';
 import { OrdenReparacionService } from 'src/app/services/orden-reparacion/orden-reparacion.service';
 import { HistorialService } from 'src/app/services/reports/historial.service';
 import { SelectsService } from 'src/app/services/reports/selects.service';
-import { ExcelService } from 'src/app/services/shared/excel.service';
+import { Excelv2Service } from 'src/app/services/shared/excelv2.service';
 import { environment } from 'src/environments/environments';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reporte-autos',
@@ -43,7 +43,7 @@ export class ReporteAutosComponent implements OnInit {
     private fb: FormBuilder,
     private customPaginatorLabel: PaginatorLabelService,
     private selectService: SelectsService,
-    private excelService : ExcelService
+    private excelServicev2 : Excelv2Service,
   ) { }
   ngOnInit(): void {
     this.customPaginatorLabel.translateMatPaginator(this.paginator);
@@ -175,9 +175,21 @@ export class ReporteAutosComponent implements OnInit {
     this.getFilters();
     this.reporteService.cargarReporteHistorialExcel(this.filters, this.service)
     .subscribe(resp =>{
-      this.excelService.exportAsExcelFile(resp,'Resporte Historial Motos');
+      if(resp.isSucces){
+      //this.excelService.exportAsExcelFile(JSON.parse(resp.data),'Resporte Historial Autos');
+      this.excelServicev2.exportar('Reporte Historial Motos',`Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`,this.columns, JSON.parse(resp.data),null,'Reporte','Sheet1');
+      }
+      else
+      Swal.fire(
+        'The Internet?',
+        'No se encontraron registros',
+        'error'
+      )
       this.cargandoExcel = false;
     });
     
   }
+
+  columns : string[] = ["Número Orden",	"Número Presupuesto","Fecha Orden","Cliente","Placa","Marca","Modelo","Año","Situación","Número Documento","Fecha Documento","Orden Compra","Kilometraje","Importe OR","Descripción Tipo Servicio","Cantidad","Descripción Servicio","Moneda","Precio Total Item"
+  ];
 }

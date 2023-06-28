@@ -53,7 +53,7 @@
               Estado :
             </label>
           </div>
-          <div class="relative h-10 w-full min-w-[200px]">
+          <div class="relative h-10 w-full min-w-[200px]" *ngIf="usuario.codigoClienteNG !==0">
             <select formControlName="codigoClienteNG" readonly="true"
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-indigo-500 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
              
@@ -65,7 +65,7 @@
             </label>
           </div>
 
-          <div class="relative h-10 w-full min-w-[200px]">
+          <div class="relative h-10 w-full min-w-[200px]" *ngIf="usuario.codigoClienteNM !==0">
             <select formControlName="codigoClienteNM" readonly="true"
               class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-indigo-500 focus:border-2 focus:border-indigo-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
               
@@ -85,14 +85,10 @@
               <p *ngIf="campoNoValido('password')">La contraseña es obligatoria</p>
             </div>
           </div>
-          <div class="flex justify-center  rounded-md shadow-sm" role="group">
-            <button type="button" (click)="editUsuario()"
-              class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-              <i class=" w-4 h-4 mr-2 fill-current fa fa-check"></i>
-              Guardar Cambios
-            </button>
-            <button type="button" (click)="openChangePassword()"
-              class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+          <div class="flex justify-center  rounded-md shadow-sm">
+             
+            <button type="button" (click)="openChangePassword()" mat-stroked-button
+              class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
               <!-- <i class=" w-4 h-4 mr-2 fill-current fa fa-spinner fa-spin"></i> -->
               <i class=" w-4 h-4 mr-2 fill-current fa fa-unlock-alt"></i>
               Modificar Contraseña

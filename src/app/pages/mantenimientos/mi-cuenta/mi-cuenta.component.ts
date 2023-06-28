@@ -102,6 +102,7 @@ export class MiCuentaComponent implements OnInit {
           estado: this.registerForm.controls.estado.value!,
           codigoClienteNG: this.registerForm.controls.codigoClienteNG.value!,
           codigoClienteNM: this.registerForm.controls.codigoClienteNM.value!,
+          admin:true
         }
     
         this.usuarioService
@@ -144,6 +145,7 @@ export class MiCuentaComponent implements OnInit {
       estado: this.registerForm.controls.estado.value!,
       codigoClienteNG: this.registerForm.controls.codigoClienteNG.value!,
       codigoClienteNM: this.registerForm.controls.codigoClienteNM.value!,
+      admin:true
     }
 
     this.usuarioService

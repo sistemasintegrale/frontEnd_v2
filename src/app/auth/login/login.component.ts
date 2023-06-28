@@ -19,7 +19,7 @@ export class LoginComponent {
   public loginForm: any = this.fb.group({
     email: [
       localStorage.getItem('email') || '',
-      [Validators.required, Validators.email],
+      [Validators.required],
     ],
     password: ['', [Validators.required]],
     remember: [JSON.parse(localStorage.getItem('remember')!) || false]

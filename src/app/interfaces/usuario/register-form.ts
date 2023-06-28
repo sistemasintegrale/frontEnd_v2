@@ -8,4 +8,5 @@ export interface RegisterForm {
   estado: boolean,
   codigoClienteNG: number,
   codigoClienteNM: number,
+  admin : boolean
 }

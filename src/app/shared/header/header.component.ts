@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private usuarioService: AuthService,
+  constructor(public usuarioService: AuthService,
     private router: Router) { }
 
   logout() {

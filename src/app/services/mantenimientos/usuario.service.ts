@@ -32,9 +32,9 @@ export class UsuarioService {
 
   modificarUsuario(formData: RegisterForm, id: number): Observable<BaseResponse<UsuarioData>> {
     debugger
-    const { nombre, apellidos, email, password, estado,codigoClienteNG,codigoClienteNM } = formData;
+    const { nombre, apellidos, email, password, estado,codigoClienteNG,codigoClienteNM ,admin} = formData;
     const valueEstado = String(estado) === 'true' ? 1 : 0;
-    const usuarioEdit = new UsuarioCreate(nombre, apellidos, email, password, Boolean(valueEstado),codigoClienteNG,codigoClienteNM);
+    const usuarioEdit = new UsuarioCreate(nombre, apellidos, email, password, Boolean(valueEstado),codigoClienteNG,codigoClienteNM,admin);
     return this.http.put<BaseResponse<UsuarioData>>(`${base_url}/usuario/${id}`, usuarioEdit);
   }
   eliminarUsuario(usuario: UsuarioData): Observable<boolean> {
