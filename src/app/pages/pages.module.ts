@@ -34,6 +34,7 @@ import { GraficoLineaComponent } from './main/dashboard/grafico-linea/grafico-li
 import { CartaRadarComponent } from './main/dashboard/carta-radar/carta-radar.component';
 import { GraficoCircularComponent } from './main/dashboard/grafico-circular/grafico-circular.component';
 import { GraficoAreaPolarComponent } from './main/dashboard/grafico-area-polar/grafico-area-polar.component';
+import {MatRippleModule} from '@angular/material/core';
 
 
 
@@ -75,7 +76,8 @@ import { GraficoAreaPolarComponent } from './main/dashboard/grafico-area-polar/g
     MatInputModule,
     FormsModule,
     NgChartsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRippleModule
   ],
   exports: [
     DashboardComponent,

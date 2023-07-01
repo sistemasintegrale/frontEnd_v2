@@ -4,13 +4,13 @@
         <div
             class="h-auto relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
             <div class="p-5 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <h6 class="dark:text-white font-semibold">Datos de prueba</h6>
+                <h6 class="dark:text-white font-semibold">Dashboard Autos</h6>
             </div>
             <div class="p-6 flex flex-row">
                 <div class="basis-1/5">                                     
                     <div class="columns-1 ">
                         <ul class="my-4 space-y-3">
-                            <li *ngFor="let item of meses; let i= index " >
+                            <li *ngFor="let item of dasboardData.leabels; let i= index " >
                                 <a  class="flex items-center p-2 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
                                     <div
                                     class="inline-block w-8 h-8 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
@@ -19,7 +19,9 @@
                                 </div>
                                 
                                     <p class=" flex-1 ml-3 whitespace-nowrap mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">{{item}}</p>                                    
-                                    <h5 class=" font-bold dark:text-white">S/{{montos[i]| number :'1.2-2'}}</h5>
+                                    <h5 class=" text-xs  font-light dark:text-white">S/{{dasboardData.montoSol[i]| number :'1.2-2'}}</h5>
+                                    
+                                    <h5 class="ml-1 text-xs font-light dark:text-white">US/{{dasboardData.MontoDol[i]| number :'1.2-2'}}</h5>
                                 </a>
                             </li>
                         </ul>

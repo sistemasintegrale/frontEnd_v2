@@ -46,7 +46,6 @@ export class SideBarService {
 
 
   constructor(private authService: AuthService) {
-    debugger
      const menuDashboard : Menu ={
       titulo:"Main",
       submenu :[this.SubMenuMain]

@@ -32,11 +32,24 @@ export class UsuariosComponent {
     private clienteservice: ClienteService,
   ) { }
   async ngOnInit() {
-    this.cargarUsuarios();
     await Promise.all([
       this.cargarClienteNG(),
       this.cargarClienteNM()
     ])
+    this.cargarUsuarios();
+    
+  }
+  getClienteNM(id: number): string {
+    if (id === 0)
+      return "";
+    const cliente = this.clientesNM.filter(x => x.id === id);
+    return cliente[0].nombre;
+  }
+  getClienteNG(id: number): string {
+    if (id === 0)
+      return "";
+    const cliente = this.clientesNG.filter(x => x.id === id);
+    return cliente[0].nombre;
   }
   cargarClienteNM() {
     this.clienteservice.ClientesNovaMotos().subscribe(res => {
