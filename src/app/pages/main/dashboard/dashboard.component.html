@@ -4,7 +4,7 @@
         <div
             class="h-auto relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
             <div class="p-5 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <h6 class="dark:text-white font-semibold">Dashboard Autos</h6>
+                <h6 class="dark:text-white font-semibold">{{titulo}}</h6>
             </div>
             <div class="p-6 flex flex-row">
                 <div class="basis-1/5">                                     
@@ -21,7 +21,7 @@
                                     <p class=" flex-1 ml-3 whitespace-nowrap mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">{{item}}</p>                                    
                                     <h5 class=" text-xs  font-light dark:text-white">S/{{dasboardData.montoSol[i]| number :'1.2-2'}}</h5>
                                     
-                                    <h5 class="ml-1 text-xs font-light dark:text-white">US/{{dasboardData.MontoDol[i]| number :'1.2-2'}}</h5>
+                                    <h5 *ngIf="dasboardData.MontoDol.length !== 0" class="ml-1 text-xs font-light dark:text-white">US/{{dasboardData.MontoDol[i]| number :'1.2-2'}}</h5>
                                 </a>
                             </li>
                         </ul>
