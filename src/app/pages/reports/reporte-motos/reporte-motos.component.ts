@@ -40,11 +40,11 @@ export class ReporteMotosComponent {
   public cargandoExcel = false;
   constructor(
     private reporteService: HistorialService,
-    private ordenReparacionservice : OrdenReparacionService,
+    private ordenReparacionservice: OrdenReparacionService,
     private fb: FormBuilder,
     private customPaginatorLabel: PaginatorLabelService,
     private selectService: SelectsService,
-    private excelServicev2 : Excelv2Service,
+    private excelServicev2: Excelv2Service,
   ) { }
   ngOnInit(): void {
     this.customPaginatorLabel.translateMatPaginator(this.paginator);
@@ -122,7 +122,7 @@ export class ReporteMotosComponent {
       )
   }
 
-  buscar(){
+  buscar() {
     this.paginator.pageIndex = 0;
     this.desde = 0;
     this.hasta = this.paginator.pageSize;;
@@ -130,7 +130,7 @@ export class ReporteMotosComponent {
   }
 
   cargarReporte() {
-    
+
     this.cargando = true;
     this.getFilters();
     this.ordenReparacionservice.getOrdenReparacion(this.filters, this.service).subscribe((resp) => {
@@ -155,7 +155,7 @@ export class ReporteMotosComponent {
   }
 
   getFilters() {
- 
+
     this.filters.desde = this.desde;
     this.filters.hasta = this.hasta;
     this.filters.fechaDesde = moment(this.range.value.fechaDesde).format(
@@ -170,24 +170,28 @@ export class ReporteMotosComponent {
     this.filters.orden = this.range.value.orden;
 
   }
- 
-  exportarExcel(){  
+
+  exportarExcel() {
     this.cargandoExcel = true;
     this.getFilters();
     this.reporteService.cargarReporteHistorialExcel(this.filters, this.service)
-    .subscribe(resp =>{
-      if(resp.isSucces)
-      this.excelServicev2.exportar('Reporte Historial Autos',`Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`,this.columns, JSON.parse(resp.data),null,'Reporte','Sheet1');
-      else
-      Swal.fire(
-        'The Internet?',
-        'No se encontraron registros',
-        'error'
-      )
-      this.cargandoExcel = false;
-    });
-    
+      .subscribe(resp => {
+        if (resp.isSucces) {
+          const data = JSON.parse(resp.data)
+          const colums = Object.keys(data[0])
+          this.excelServicev2.exportar('Reporte Historial Motos', `Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`, colums, data, null, 'Reporte', 'Sheet1');
+        }
+
+
+        else
+          Swal.fire(
+            'The Internet?',
+            'No se encontraron registros',
+            'error'
+          )
+        this.cargandoExcel = false;
+      });
+
   }
-  columns : string[] = ["Número Orden",	"Número Presupuesto","Fecha Orden","Cliente","Placa","Marca","Modelo","Año","Situación","Número Documento","Fecha Documento","Orden Compra","Kilometraje","Importe OR","Descripción Tipo Servicio","Cantidad","Descripción Servicio","Moneda","Precio Total Item"
-  ];
+ 
 }

@@ -171,13 +171,17 @@ export class ReporteAutosComponent implements OnInit {
   }
  
   exportarExcel(){  
+
     this.cargandoExcel = true;
     this.getFilters();
     this.reporteService.cargarReporteHistorialExcel(this.filters, this.service)
     .subscribe(resp =>{
+      debugger
       if(resp.isSucces){
       //this.excelService.exportAsExcelFile(JSON.parse(resp.data),'Resporte Historial Autos');
-      this.excelServicev2.exportar('Reporte Historial Motos',`Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`,this.columns, JSON.parse(resp.data),null,'Reporte','Sheet1');
+      const data = JSON.parse(resp.data)
+      const colums = Object.keys(data[0])
+      this.excelServicev2.exportar('Reporte Historial Autos',`Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`,colums, data,null,'Reporte','Sheet1');
       }
       else
       Swal.fire(
@@ -190,6 +194,6 @@ export class ReporteAutosComponent implements OnInit {
     
   }
 
-  columns : string[] = ["Número Orden",	"Número Presupuesto","Fecha Orden","Cliente","Placa","Marca","Modelo","Año","Situación","Número Documento","Fecha Documento","Orden Compra","Kilometraje","Importe OR","Descripción Tipo Servicio","Cantidad","Descripción Servicio","Moneda","Precio Total Item"
-  ];
+  // columns : string[] = ["Número Orden",	"Número Presupuesto","Fecha Orden","Cliente","Placa","Marca","Modelo","Año","Situación","Número Documento","Fecha Documento","Orden Compra","Kilometraje","Importe OR","Descripción Tipo Servicio","Cantidad","Descripción Servicio","Moneda","Precio Total Item"
+  // ];
 }
