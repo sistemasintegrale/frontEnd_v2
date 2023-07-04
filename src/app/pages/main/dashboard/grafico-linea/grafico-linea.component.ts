@@ -1,23 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
-import { Chart, ChartConfiguration, ChartEvent, ChartType, ChartDataset } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { DashboardService } from 'src/app/services/main/dashboard.service';
-import { environment } from 'src/environments/environments';
-
-const connNG = environment.CONN_NOVAGLASS;
-const connNM = environment.CONN_NOVAMOTOS;
+import { Component } from '@angular/core';
+import { ChartConfiguration, ChartType, ChartDataset } from 'chart.js';
+import { DashboardDataService } from '../dashboard-data.service';
 
 @Component({
   selector: 'app-grafico-linea',
   templateUrl: './grafico-linea.component.html',
-  styleUrls: ['./grafico-linea.component.css']
+  styleUrls: []
 })
 export class GraficoLineaComponent {
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true
   };
-  public barChartLabels : string[]= [];
+  public barChartLabels: string[] = [];
   public barChartType: ChartType = 'line';
   public barChartLegend = true;
 
@@ -25,36 +19,17 @@ export class GraficoLineaComponent {
 
 
   constructor(
-    private dasboardService: DashboardService,
-    private authService: AuthService
+    private dasboardService: DashboardDataService,
   ) { }
-    titulo : string = 'Dashboard Autos';
   ngOnInit(): void {
-    let service = connNG;
-    if (!this.authService.usuario.admin) {
-      service = this.authService.usuario.codigoClienteNG !== 0 ? connNG : connNM ;
-      this.titulo = service === connNG ? this.titulo : "Dashboard Motos";
-    }
-    this.dasboardService.get(service).subscribe(res => {
-      const data = JSON.parse(res)
-      if (data.length>1) {
-        const data1 = data[1];
-        const data2 = data[0];
-        data.splice(0, 1, data1);
-        data.splice(1, 1, data2);
+    this.dasboardService.Data.subscribe(
+      res => {
+        this.barChartLabels = [];
+        this.barChartData = [];
+        this.barChartLabels = (res.Labels);
+        this.barChartData.push({ data: res.MontoSol, label: 'Facturado S/' });
+        this.barChartData.push({ data: res.MontoDol, label: 'Facturado US/' })
       }
-      let labels: string[] = Object.keys(data[0]);
-      labels.shift()
-      this.barChartLabels = labels;
-      let montosol: number[] = Object.values(data[0]);
-      montosol.shift()
-      this.barChartData.push({ data: montosol, label: 'Facturados S/' })
-
-      if (data.length >1){
-        let montodol: number[] = Object.values(data[1]);
-        montodol.shift()        
-        this.barChartData.push({ data: montodol, label: 'Facturados US/' })
-      }
-    })
+    )
   }
 }

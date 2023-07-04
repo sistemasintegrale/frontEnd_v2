@@ -10,23 +10,32 @@ import { MiCuentaComponent } from './mantenimientos/mi-cuenta/mi-cuenta.componen
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: 'main',
     component: PagesComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: DashboardComponent, data: { titulo: 'Main', subTitulo: 'Dashboard' } },
-      //{ path: 'account-settings', component: AccountSettingsComponent , data: { titulo: 'Ajustes', subTitulo: 'Usuario' } },
-      { path: 'reporte-historial-autos', component: ReporteAutosComponent, data: { titulo: 'Reportes', subTitulo: 'Historial Autos' } },
-      { path: 'reporte-historial-motos', component: ReporteMotosComponent, data: { titulo: 'Reportes', subTitulo: 'Historial Motos' } },
-      //matenimientos
-      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimientos', subTitulo: 'Usuarios' } },
-      { path: 'mi-perfil', component: MiCuentaComponent, data: { titulo: 'Mantenimientos', subTitulo: 'Mi Perfil' } },
-
-
-
-
+      { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Main', subTitulo: 'Dashboard' } },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
+  {
+    path: 'reportes',
+    component: PagesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'reporte-historial-autos', component: ReporteAutosComponent, data: { titulo: 'Reportes', subTitulo: 'Historial Autos' } },
+      { path: 'reporte-historial-motos', component: ReporteMotosComponent, data: { titulo: 'Reportes', subTitulo: 'Historial Motos' } },
+    ]
+  },
+  {
+    path: 'mantenimientos',
+    component: PagesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimientos', subTitulo: 'Usuarios' } },
+      { path: 'mi-perfil', component: MiCuentaComponent, data: { titulo: 'Mantenimientos', subTitulo: 'Mi Perfil' } },
+    ]
+  }
 ]
 
 @NgModule({
