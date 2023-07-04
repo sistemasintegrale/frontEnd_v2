@@ -1,56 +1,60 @@
 <div class="flex flex-wrap -mx-3 ">
 
-    <div class="flex-none w-full max-w-full px-3 ">
-        <div
-            class="h-auto relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-            <div class="p-5 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <h6 class="dark:text-white font-semibold">{{titulo}}</h6>
-            </div>
-            <div class="p-6 flex flex-row">
-                <div class="basis-1/5">                                     
-                    <div class="columns-1 ">
-                        <ul class="my-4 space-y-3">
-                            <li *ngFor="let item of dasboardData.leabels; let i= index " >
-                                <a  class="flex items-center p-2 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-                                    <div
-                                    class="inline-block w-8 h-8 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
-                                    <i
-                                        class="ni leading-none ni-money-coins text-sm relative top-1  text-white"></i>
-                                </div>
-                                
-                                    <p class=" flex-1 ml-3 whitespace-nowrap mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">{{item}}</p>                                    
-                                    <h5 class=" text-xs  font-light dark:text-white">S/{{dasboardData.montoSol[i]| number :'1.2-2'}}</h5>
-                                    
-                                    <h5 *ngIf="dasboardData.MontoDol.length !== 0" class="ml-1 text-xs font-light dark:text-white">US/{{dasboardData.MontoDol[i]| number :'1.2-2'}}</h5>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+  <div class="flex-none w-full max-w-full px-3 ">
+    <div
+      class="h-auto relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+      <div class="p-5 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+        <h6 class="dark:text-white font-semibold">{{titulo}}</h6>
+      </div>
+      <div class="p-6 flex flex-row">
+        <div class="basis-1/5">
+          <div class="columns-1 ">
+            <ul class="my-4 space-y-3">
+              <li *ngFor="let item of dashboardData.Labels; let i= index ">
+                <a
+                  class="flex items-center p-2 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                  <div
+                    class="inline-block w-8 h-8 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
+                    <i class="ni leading-none ni-money-coins text-sm relative top-1  text-white"></i>
+                  </div>
 
-                </div>
-                <div class="basis-10/12">
-                    <div class="grid justify-items-center">
-                        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-                            <mat-tab label="Gráfico en barras">
-                                <app-grafico-barras></app-grafico-barras>
-                            </mat-tab>
-                            <mat-tab label="Gráfico de linea">
-                                <app-grafico-linea></app-grafico-linea>
-                            </mat-tab>
-                            <mat-tab label="Carta de radar">
-                                <app-carta-radar></app-carta-radar>
-                            </mat-tab>
-                            <mat-tab label="Gráfico circular">
-                                <app-grafico-circular></app-grafico-circular>
-                            </mat-tab>
-                            <mat-tab label="Gráfico de área polar">
-                                <app-grafico-area-polar></app-grafico-area-polar>
-                            </mat-tab>
-                        </mat-tab-group>
-                    </div>
-                </div>
+                  <p
+                    class=" flex-1 ml-3 whitespace-nowrap mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">
+                    {{item}}</p>
+                  <h5 *ngIf="dashboardData.MontoSol.length !== 0" class=" text-xs  font-light dark:text-white">
+                    S/{{dashboardData.MontoSol[i]| number :'1.2-2'}}</h5>
 
-            </div>
+                  <h5 *ngIf="dashboardData.MontoDol.length !== 0" class="ml-1 text-xs font-light dark:text-white">
+                    US/{{dashboardData.MontoDol[i]| number :'1.2-2'}}</h5>
+                </a>
+              </li>
+            </ul>
+          </div>
+
         </div>
+        <div class="basis-10/12">
+          <div class="grid justify-items-center">
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+              <mat-tab label="Gráfico en barras">
+                <app-grafico-barras></app-grafico-barras>
+              </mat-tab>
+              <mat-tab label="Gráfico de linea">
+                <app-grafico-linea></app-grafico-linea>
+              </mat-tab>
+              <mat-tab label="Carta de radar">
+                <app-carta-radar></app-carta-radar>
+              </mat-tab>
+              <mat-tab label="Gráfico circular">
+                <app-grafico-circular></app-grafico-circular>
+              </mat-tab>
+              <mat-tab label="Gráfico de área polar">
+                <app-grafico-area-polar></app-grafico-area-polar>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>

@@ -21,34 +21,34 @@ export class SidebarComponent {
 
   subMenuUsuarios: SubMenu = {
     titulo: 'Usuarios',
-    url: 'usuarios',
+    url: '/mantenimientos/usuarios',
     icono: 'fas fa-users',
     color: 'text-cyan-500'
   };
   subMenuMiPerfil: SubMenu = {
     titulo: 'Mi Perfil',
-    url: 'mi-perfil',
+    url: '/mantenimientos/mi-perfil',
     icono: 'fas fa-user',
     color: 'text-red-500'
   };
 
   subMenuHistorialAutos: SubMenu = {
     titulo: 'Historial Autos',
-    url: 'reporte-historial-autos',
+    url: '/reportes/reporte-historial-autos',
     icono: 'ni ni-single-copy-04',
     color: 'text-orange-500'
   }
 
   subMenuHistorialMotos: SubMenu = {
     titulo: 'Historial Motos',
-    url: 'reporte-historial-motos',
+    url: '/reportes/reporte-historial-motos',
     icono: 'ni ni-collection',
     color: 'text-emerald-500'
   }
 
   SubMenuMain: SubMenu = {
     titulo: 'Dashboard',
-    url: '/dashboard',
+    url: '/main/dashboard',
     icono: 'ni ni-tv-2',
     color: 'text-blue-500'
   }
@@ -56,39 +56,39 @@ export class SidebarComponent {
   constructor(private sideBarService: SideBarService,
     private authService: AuthService,
     private router: Router) {
-      const menuDashboard : Menu ={
-        titulo:"Main",
-        submenu :[this.SubMenuMain]
-       }
-  
-       const subMenusHistorial : SubMenu[] = [];
-       if (this.authService.usuario.admin || this.authService.usuario.id === 1 || this.authService.usuario.codigoClienteNG !==0) {
-        subMenusHistorial.push(this.subMenuHistorialAutos)
-       }
-       if (this.authService.usuario.admin || this.authService.usuario.id === 1 || this.authService.usuario.codigoClienteNM !==0) {
-        subMenusHistorial.push(this.subMenuHistorialMotos)
-       }
-  
-       const menuReportes : Menu = {
-        titulo : 'Reportes',
-        submenu : subMenusHistorial
-       }
-  
-       const subMenuMantenimientos : SubMenu[]=[];
-       if (this.authService.usuario.admin|| this.authService.usuario.id === 1) {
-        subMenuMantenimientos.push(this.subMenuUsuarios);
-       }
-       subMenuMantenimientos.push(this.subMenuMiPerfil);
-  
-       const menuMantenimientos : Menu = {
-        titulo : 'Mantenimientos',
-        submenu : subMenuMantenimientos
-       }
-  
-       this.sideMenu.push(menuDashboard,menuReportes,menuMantenimientos)
+    const menuDashboard: Menu = {
+      titulo: "Main",
+      submenu: [this.SubMenuMain]
+    }
 
-    
-    
+    const subMenusHistorial: SubMenu[] = [];
+    if (this.authService.usuario.admin || this.authService.usuario.id === 1 || this.authService.usuario.codigoClienteNG !== 0) {
+      subMenusHistorial.push(this.subMenuHistorialAutos)
+    }
+    if (this.authService.usuario.admin || this.authService.usuario.id === 1 || this.authService.usuario.codigoClienteNM !== 0) {
+      subMenusHistorial.push(this.subMenuHistorialMotos)
+    }
+
+    const menuReportes: Menu = {
+      titulo: 'Reportes',
+      submenu: subMenusHistorial
+    }
+
+    const subMenuMantenimientos: SubMenu[] = [];
+    if (this.authService.usuario.admin || this.authService.usuario.id === 1) {
+      subMenuMantenimientos.push(this.subMenuUsuarios);
+    }
+    subMenuMantenimientos.push(this.subMenuMiPerfil);
+
+    const menuMantenimientos: Menu = {
+      titulo: 'Mantenimientos',
+      submenu: subMenuMantenimientos
+    }
+
+    this.sideMenu.push(menuDashboard, menuReportes, menuMantenimientos)
+
+
+
   }
   ngOnInit(): void {
 

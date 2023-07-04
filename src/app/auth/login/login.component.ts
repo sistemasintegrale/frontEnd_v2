@@ -26,12 +26,11 @@ export class LoginComponent {
   });
 
   login() {
-    console.log(123)
     this.usuarioService.login(this.loginForm.value)
       .subscribe(
         resp => {
           if (resp.isSucces) {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/main');
             if (this.loginForm.get('remember').value) {
               localStorage.setItem('email', this.loginForm.get('email').value)
               localStorage.setItem('remember', this.loginForm.get('remember').value)

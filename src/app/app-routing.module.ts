@@ -6,7 +6,7 @@ import { AuthRountingModule } from './auth/auth.routing';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**', component: NopageFoundComponent }
 
 ]

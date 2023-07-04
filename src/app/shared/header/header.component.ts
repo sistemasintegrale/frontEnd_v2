@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,18 @@ export class HeaderComponent {
     private router: Router) { }
 
   logout() {
-    this.usuarioService.logOut();
-    this.router.navigateByUrl('/login')
+    Swal.fire({
+      title: 'Salir',
+      text: `Desea salir del sistema ?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, salir'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.logOut();
+        this.router.navigateByUrl('/login')
+      }
+    })
+
   }
 }
