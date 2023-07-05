@@ -9,7 +9,8 @@ import { DashboardDataService } from '../dashboard-data.service';
 })
 export class GraficoLineaComponent {
   public barChartOptions: ChartConfiguration['options'] = {
-    responsive: true
+    responsive: true,
+    
   };
   public barChartLabels: string[] = [];
   public barChartType: ChartType = 'line';
@@ -27,8 +28,8 @@ export class GraficoLineaComponent {
         this.barChartLabels = [];
         this.barChartData = [];
         this.barChartLabels = (res.Labels);
-        this.barChartData.push({ data: res.MontoSol, label: 'Facturado S/' });
-        this.barChartData.push({ data: res.MontoDol, label: 'Facturado US/' })
+        this.barChartData.push({ data: res.MontoSol, label: 'Facturado S/' , tension : 0.3 ,fill : true});
+        this.barChartData.push({ data: res.MontoDol, label: 'Facturado US/', tension : 0.3 ,fill : true})
       }
     )
   }

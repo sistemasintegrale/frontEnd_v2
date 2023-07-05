@@ -14,11 +14,12 @@ const connNM = environment.CONN_NOVAMOTOS;
   styleUrls: []
 })
 export class DashboardComponent implements OnInit {
+  service = "1"
   dashboardData: DasboardData = { Labels: [], MontoDol: [], MontoSol: [] };
   constructor(
     private dasboardService: DashboardService,
     public dasboardData: DashboardDataService,
-    private authService: AuthService
+    public authService: AuthService
   ) { }
   titulo: string = 'Dashboard Autos';
   ngOnInit(): void {
@@ -28,8 +29,11 @@ export class DashboardComponent implements OnInit {
       service = this.authService.usuario.codigoClienteNG !== 0 ? connNG : connNM;
       this.titulo = service === connNG ? this.titulo : "Dashboard Motos";
     }
+    this.cargarDatos(service);
+  }
+
+  cargarDatos(service : number){
     this.dasboardService.get(service).subscribe(res => {
-      debugger
       const data = JSON.parse(res)
       if (data.length > 1) {
         const data1 = data[1];
@@ -55,5 +59,10 @@ export class DashboardComponent implements OnInit {
 
 
     })
+  }
+
+  cambiar(){
+    debugger
+    this.cargarDatos(parseInt(this.service))
   }
 }

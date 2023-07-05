@@ -43,7 +43,7 @@ export class UserDialogComponent implements OnInit {
   }
   async ngOnInit() {
 
-    
+
 
 
     this.registerForm = new FormGroup({
@@ -61,7 +61,7 @@ export class UserDialogComponent implements OnInit {
       this.cargarClienteNM()
     ])
   }
- 
+
 
   cargarClienteNM() {
     this.clienteservice.ClientesNovaMotos().subscribe(res => {
@@ -78,10 +78,29 @@ export class UserDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  validarUsuario(): boolean {
+    const usuario = this.registerForm.value;
+    if(!usuario.admin)
+    {
+      if(usuario.codigoClienteNG === 0 && usuario.codigoClienteNM === 0){
+        Swal.fire(
+          'Alerta!',
+          `Si el Usuario ${usuario.nombre} no es administrador, seccione cliente Nova Glass o Nova Motos`,
+          'error'
+        );
+        return false  ;
+      }
+
+    }
+    return true;
+  }
+
   addUsuario() {
     this.formSubmitted = true;
     if (this.registerForm.invalid)
       return;
+    if (!this.validarUsuario())
+      return
     this.usuarioService.crearUsuario(this.registerForm.value)
       .subscribe({
         next: ((data) => {
@@ -102,6 +121,8 @@ export class UserDialogComponent implements OnInit {
     this.formSubmitted = true;
     if (this.registerForm.invalid)
       return;
+    if (!this.validarUsuario())
+      return
     this.usuarioService
       .modificarUsuario(this.registerForm.value, this.usuario.id)
       .subscribe({
@@ -136,5 +157,5 @@ export class UserDialogComponent implements OnInit {
 
   }
 
-   
+
 }
