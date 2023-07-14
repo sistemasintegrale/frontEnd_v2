@@ -22,4 +22,8 @@ export class HistorialService {
   cargarReporteHistorialExcel(filters: ReporteHistorialFilters, service: number): Observable<BaseResponse<string>> {
     return this.http.post<BaseResponse<string>>(`${base_url}/Reporte/excel/${service}`, filters);
   }
+
+  cargarReporteHistorialExcelDet(filters: ReporteHistorialFilters, service: number): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(`${base_url}/Reporte/excelDet/${service}`, filters);
+  }
 }

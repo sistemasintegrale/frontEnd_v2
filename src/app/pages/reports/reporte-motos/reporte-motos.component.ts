@@ -38,6 +38,7 @@ export class ReporteMotosComponent {
   public cargando: boolean = false;
   public cantidadRequeridaAnt: number = 10;
   public cargandoExcel = false;
+  public cargandoExcelDet = false;
   constructor(
     private reporteService: HistorialService,
     private ordenReparacionservice: OrdenReparacionService,
@@ -181,11 +182,9 @@ export class ReporteMotosComponent {
           const colums = Object.keys(data[0])
           this.excelServicev2.exportar('Reporte Historial Motos', `Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`, colums, data, null, 'Reporte', 'Sheet1');
         }
-
-
         else
           Swal.fire(
-            'The Internet?',
+            'Información del sistema?',
             'No se encontraron registros',
             'error'
           )
@@ -193,5 +192,27 @@ export class ReporteMotosComponent {
       });
 
   }
- 
+  exportarExcelDet() {
+
+    this.cargandoExcelDet = true;
+    this.getFilters();
+    this.reporteService.cargarReporteHistorialExcelDet(this.filters, this.service)
+      .subscribe(resp => {
+
+        if (resp.isSucces) {
+
+          const data = JSON.parse(resp.data)
+          const colums = Object.keys(data[0])
+          this.excelServicev2.exportar('Reporte Historial Autos', `Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`, colums, data, null, 'Reporte', 'Sheet1');
+        }
+        else
+          Swal.fire(
+            'Información del sistema?',
+            'No se encontraron registros',
+            'error'
+          )
+        this.cargandoExcelDet = false;
+      });
+
+  }
 }

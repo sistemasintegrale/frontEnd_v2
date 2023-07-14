@@ -97,10 +97,22 @@
               <i *ngIf="!cargandoExcel" class="fa fa-file-excel-o"></i>
               <i *ngIf="cargandoExcel" class="fa fa-spinner fa-spin"></i>
             </div>
-            {{!cargandoExcel ? 'Exportar' : 'Exportando'}}
+            {{!cargandoExcel ? 'Exportar Detalle' : 'Exportando'}}
           </button>
           </div>
 
+          <div class="relative h-10 w-full min-w-[100px]">
+            <button (click)="exportarExcelDet()" [disabled]="cargandoExcelDet"
+            class="h-full flex select-none items-center rounded-lg bg-green-600 py-2 pr-4 pl-2 text-center align-middle  text-xs font-semibold  text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button" data-ripple-light="true">
+            <div
+              class=" flex h-4 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5 font-[1] text-lg	">
+              <i *ngIf="!cargandoExcelDet" class="fa fa-file-excel-o"></i>
+              <i *ngIf="cargandoExcelDet" class="fa fa-spinner fa-spin"></i>
+            </div>
+            {{!cargandoExcelDet ? 'Exportar Lista' : 'Exportando'}}
+          </button>
+          </div>
           
         </div>
       </div>
