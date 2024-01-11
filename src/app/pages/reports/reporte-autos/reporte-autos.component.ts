@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 import { OrdenReparacionList } from 'src/app/interfaces/orden-reparacion/orden-reparacion';
 import { Marca } from 'src/app/interfaces/reporte-historial/marca';
@@ -8,7 +7,6 @@ import { Modelo } from 'src/app/interfaces/reporte-historial/modelo';
 import { OrdenReparacion } from 'src/app/interfaces/reporte-historial/or';
 import { Placa } from 'src/app/interfaces/reporte-historial/placa';
 import { ReporteHistorialFilters } from 'src/app/interfaces/reporte-historial/reporte-historial-filters';
-import { PaginatorLabelService } from 'src/app/services/custom/paginator-label.service';
 import { OrdenReparacionService } from 'src/app/services/orden-reparacion/orden-reparacion.service';
 import { HistorialService } from 'src/app/services/reports/historial.service';
 import { SelectsService } from 'src/app/services/reports/selects.service';
@@ -22,6 +20,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./reporte-autos.component.css']
 })
 export class ReporteAutosComponent implements OnInit {
+  selectedProduct!: OrdenReparacionList;
   public reporte: OrdenReparacionList[] = [];
   public marcas: Marca[] = [];
   public modelos: Modelo[] = [];
@@ -29,26 +28,18 @@ export class ReporteAutosComponent implements OnInit {
   public ordenes: OrdenReparacion[] = [];
   public filters = {} as ReporteHistorialFilters;
   public formSubmitted = false;
-  public totalReporte: number = 0;
-  public desde: number = 0;
-  public hasta: number = 10;
   public cargandoExcel = false;
   public cargandoExcelDet = false;
   service = environment.CONN_NOVAGLASS;
-  @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
   public cargando: boolean = false;
-  public cantidadRequeridaAnt: number = 10;
   constructor(
     private reporteService: HistorialService,
     private ordenReparacionservice: OrdenReparacionService,
     private fb: FormBuilder,
-    private customPaginatorLabel: PaginatorLabelService,
     private selectService: SelectsService,
     private excelServicev2: Excelv2Service,
   ) { }
   ngOnInit(): void {
-    this.customPaginatorLabel.translateMatPaginator(this.paginator);
-
   }
 
 
@@ -61,82 +52,37 @@ export class ReporteAutosComponent implements OnInit {
     orden: [0],
   });
 
-  getPaginationData(event: PageEvent): PageEvent {
-    debugger
-    if (this.cantidadRequeridaAnt !== event.pageSize) {
-      this.paginator.pageIndex = 0;
-      this.desde = 0;
-      this.hasta = event.pageSize;
-      this.cantidadRequeridaAnt = event.pageSize;
-      if (this.range.invalid) return event;
-    } else {
-      const newIndex = event.pageIndex + 1;
-      this.hasta = event.pageSize * newIndex;
-      this.desde = this.hasta - event.pageSize;
-    }
-    this.cargarReporte();
-    return event;
-  }
+
 
   cargarMarca() {
     this.selectService.cargarSelectMarca(this.service, this.filters)
-      .subscribe(
-        {
-          next: (res => {
-            this.marcas = res.data;
-          })
-        }
-      )
+      .subscribe(res => this.marcas = res.data)
   }
 
   cargarModelo() {
     this.selectService.cargarSelectModelo(this.service, this.filters)
-      .subscribe(
-        {
-          next: (res => {
-            this.modelos = res.data;
-          })
-        }
-      )
+      .subscribe(res => this.modelos = res.data)
   }
 
   cargarPlaca() {
     this.selectService.cargarSelectPlaca(this.service, this.filters)
-      .subscribe(
-        {
-          next: (res => {
-            this.placas = res.data;
-          })
-        }
-      )
+      .subscribe(res => this.placas = res.data)
   }
 
   cargarOR() {
     this.selectService.cargarSelectOR(this.service, this.filters)
-      .subscribe(
-        {
-          next: (res => {
-            this.ordenes = res.data;
-          })
-        }
-      )
+      .subscribe(res => this.ordenes = res.data)
   }
 
   buscar() {
-
-    this.paginator.pageIndex = 0;
-    this.desde = 0;
-    this.hasta = this.paginator.pageSize;
     this.cargarReporte();
   }
 
   cargarReporte() {
-
     this.cargando = true;
     this.getFilters();
     this.ordenReparacionservice.getOrdenReparacion(this.filters, this.service).subscribe((resp) => {
-      this.reporte = resp.data.data;
-      this.totalReporte = resp.cantidad;
+      this.reporte = JSON.parse(resp.data);
       this.cargando = false;
     });
   }
@@ -155,9 +101,6 @@ export class ReporteAutosComponent implements OnInit {
   }
 
   getFilters() {
-
-    this.filters.desde = this.desde;
-    this.filters.hasta = this.hasta;
     this.filters.fechaDesde = moment(this.range.value.fechaDesde).format(
       'DD/MM/YYYY'
     );
@@ -172,14 +115,11 @@ export class ReporteAutosComponent implements OnInit {
   }
 
   exportarExcel() {
-
     this.cargandoExcel = true;
     this.getFilters();
     this.reporteService.cargarReporteHistorialExcel(this.filters, this.service)
       .subscribe(resp => {
-        debugger
         if (resp.isSucces) {
-          //this.excelService.exportAsExcelFile(JSON.parse(resp.data),'Resporte Historial Autos');
           const data = JSON.parse(resp.data)
           const colums = Object.keys(data[0])
           this.excelServicev2.exportar('Reporte Historial Autos', `Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`, colums, data, null, 'Reporte', 'Sheet1');
@@ -196,7 +136,6 @@ export class ReporteAutosComponent implements OnInit {
   }
 
   exportarExcelDet() {
-
     this.cargandoExcelDet = true;
     this.getFilters();
     this.reporteService.cargarReporteHistorialExcelDet(this.filters, this.service)
@@ -218,4 +157,6 @@ export class ReporteAutosComponent implements OnInit {
       });
 
   }
+
+
 }

@@ -35,7 +35,8 @@ import { CartaRadarComponent } from './main/dashboard/carta-radar/carta-radar.co
 import { GraficoCircularComponent } from './main/dashboard/grafico-circular/grafico-circular.component';
 import { GraficoAreaPolarComponent } from './main/dashboard/grafico-area-polar/grafico-area-polar.component';
 import {MatRippleModule} from '@angular/material/core';
-
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -77,7 +78,9 @@ import {MatRippleModule} from '@angular/material/core';
     FormsModule,
     NgChartsModule,
     MatTabsModule,
-    MatRippleModule
+    MatRippleModule,
+    TableModule,
+    ButtonModule
   ],
   exports: [
     DashboardComponent,

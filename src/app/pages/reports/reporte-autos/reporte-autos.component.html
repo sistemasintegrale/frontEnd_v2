@@ -6,7 +6,8 @@
         <h6 class="dark:text-white font-semibold">Criterios de Búsqueda :</h6>
       </div> -->
       <div class="p-5">
-        <div class="grid gap-x-4 gap-y-1 grid-cols-2  xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-4 " [formGroup]="range">
+        <div class="grid gap-x-4 gap-y-1 grid-cols-2  xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-4 "
+          [formGroup]="range">
 
           <div class="relative h-10 w-full min-w-[140px]">
             <input type="date" formControlName="fechaDesde" (change)="cargarCombos()"
@@ -86,34 +87,34 @@
               </div>
               {{cargando ? 'Cargando...':'Buscar'}}
             </button>
-            
+
           </div>
           <div class="relative h-10 w-full min-w-[100px]">
             <button (click)="exportarExcel()" [disabled]="cargandoExcel"
-            class="h-full flex select-none items-center rounded-lg bg-green-600 py-2 pr-4 pl-2 text-center align-middle  text-xs font-semibold  text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            type="button" data-ripple-light="true">
-            <div
-              class=" flex h-4 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5 font-[1] text-lg	">
-              <i *ngIf="!cargandoExcel" class="fa fa-file-excel-o"></i>
-              <i *ngIf="cargandoExcel" class="fa fa-spinner fa-spin"></i>
-            </div>
-            {{!cargandoExcel ? 'Exportar Detalle' : 'Exportando'}}
-          </button>
+              class="h-full flex select-none items-center rounded-lg bg-green-600 py-2 pr-4 pl-2 text-center align-middle  text-xs font-semibold  text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button" data-ripple-light="true">
+              <div
+                class=" flex h-4 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5 font-[1] text-lg	">
+                <i *ngIf="!cargandoExcel" class="fa fa-file-excel-o"></i>
+                <i *ngIf="cargandoExcel" class="fa fa-spinner fa-spin"></i>
+              </div>
+              {{!cargandoExcel ? 'Exportar Detalle' : 'Exportando'}}
+            </button>
           </div>
 
           <div class="relative h-10 w-full min-w-[100px]">
             <button (click)="exportarExcelDet()" [disabled]="cargandoExcelDet"
-            class="h-full flex select-none items-center rounded-lg bg-green-600 py-2 pr-4 pl-2 text-center align-middle  text-xs font-semibold  text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            type="button" data-ripple-light="true">
-            <div
-              class=" flex h-4 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5 font-[1] text-lg	">
-              <i *ngIf="!cargandoExcelDet" class="fa fa-file-excel-o"></i>
-              <i *ngIf="cargandoExcelDet" class="fa fa-spinner fa-spin"></i>
-            </div>
-            {{!cargandoExcelDet ? 'Exportar Lista' : 'Exportando'}}
-          </button>
+              class="h-full flex select-none items-center rounded-lg bg-green-600 py-2 pr-4 pl-2 text-center align-middle  text-xs font-semibold  text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button" data-ripple-light="true">
+              <div
+                class=" flex h-4 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5 font-[1] text-lg	">
+                <i *ngIf="!cargandoExcelDet" class="fa fa-file-excel-o"></i>
+                <i *ngIf="cargandoExcelDet" class="fa fa-spinner fa-spin"></i>
+              </div>
+              {{!cargandoExcelDet ? 'Exportar Lista' : 'Exportando'}}
+            </button>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -129,48 +130,96 @@
     <div
       class="h-auto relative flex flex-col min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
       <div class="p-6">
-        <div class="overflow-auto rounded-lg shadow">
-          <table class="w-full">
-            <thead class="bg-violet-100 border-b-1 border-indigo-200 dark:bg-violet-950 ">
-              <tr>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Número OR</th>
-                <th class="p-3 text-sm font-semibold tracking-wide text-center dark:text-white">Fecha OR</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Orden de Compra</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Cliente</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Placa</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Marca</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Modelo</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Año</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Situación</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Número Documento</th>
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Fecha Doc</th>                
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Moneda</th>      
-                <th class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white">Importe OR</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="dark:bg-slate-850 " *ngFor="let item of reporte">
-                <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{item.numeroOrden}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.fechaOrden}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.ordenCompra}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.cliente}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.placa}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.marca}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.modelo}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.anio}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.situacion}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.numeroDocumento}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.fechaDocumento}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm">{{item.moneda}}</td>
-                <td class="whitespace-nowrap px-5 py-2 dark:text-white text-sm text-right">{{item.importe | number :'1.2-2'}}</td>
-              </tr>
-            </tbody>
-          </table>
+        <p-table [value]="reporte" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="'p-datatable-sm'"
+          [paginator]="true" [scrollable]="true" scrollHeight="400px" [(selection)]="selectedProduct"
+          dataKey="numeroOrden" selectionMode="single" [rows]="10"
+          currentPageReportTemplate="Mostrando {first} hasta {last} de {totalRecords} registros"
+          [rowsPerPageOptions]="[10, 25, 50]" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header" class=" border-b-1 border-indigo-200 dark:bg-violet-950 ">
+            <tr>
 
-        </div>
-        <mat-paginator [length]="totalReporte" [pageSizeOptions]="[10, 50, 100]" (page)="getPaginationData($event)"
-          class="bg-red-500">
-        </mat-paginator>
+              <th pSortableColumn="numeroOrden"
+                class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white min-w-[150px]  !bg-violet-100">
+                Número OR <p-sortIcon field="numeroOrden"></p-sortIcon></th>
+              <th pSortableColumn="fechaOrden"
+                class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Fecha OR <p-sortIcon field="fechaOrden"></p-sortIcon></th>
+              <th pSortableColumn="ordenCompra"
+                class="p-2 text-sm font-semibold tracking-wide text-center dark:text-white min-w-[180px] !bg-violet-100">
+                Orden de Compra<p-sortIcon field="ordenCompra"></p-sortIcon></th>
+              <th pSortableColumn="cliente"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[250px] !bg-violet-100">
+                Cliente<p-sortIcon field="cliente"></p-sortIcon></th>
+              <th pSortableColumn="placa"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Placa<p-sortIcon field="placa"></p-sortIcon></th>
+              <th pSortableColumn="marca"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Marca<p-sortIcon field="marca"></p-sortIcon></th>
+              <th pSortableColumn="modelo"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Modelo<p-sortIcon field="modelo"></p-sortIcon></th>
+              <th pSortableColumn="anio"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[100px] !bg-violet-100">
+                Año<p-sortIcon field="anio"></p-sortIcon></th>
+              <th pSortableColumn="situacion"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Situación<p-sortIcon field="situacion"></p-sortIcon></th>
+              <th pSortableColumn="numeroDocumento"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Número Doc<p-sortIcon field="numeroDocumento"></p-sortIcon></th>
+              <th pSortableColumn="fechaDocumento"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Fecha Doc <p-sortIcon field="fechaDocumento"></p-sortIcon></th>
+              <th pSortableColumn="moneda"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[100px] !bg-violet-100">
+                Moneda<p-sortIcon field="moneda"></p-sortIcon></th>
+              <th pSortableColumn="netoOR"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[120px] !bg-violet-100">
+                Neto OR<p-sortIcon field="netoOR"></p-sortIcon></th>
+              <th pSortableColumn="importeOR"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[150px] !bg-violet-100">
+                Importe OR<p-sortIcon field="importeOR"></p-sortIcon></th>
+              <th pSortableColumn="netoDocumento"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[170px] !bg-violet-100">
+                Neto Documento<p-sortIcon field="netoDocumento"></p-sortIcon></th>
+              <th pSortableColumn="totalDocuemnto"
+                class="p-2 text-sm font-semibold tracking-wide !text-center dark:text-white min-w-[170px] !bg-violet-100">
+                Total Documento<p-sortIcon field="totalDocuemnto"></p-sortIcon></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr [pSelectableRow]="item">
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.numeroOrden }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.fechaOrden }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.ordenCompra }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.cliente }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.placa }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.marca }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.modelo }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.anio }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.situacion }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.numeroDocumento }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.fechaDocumento }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm">{{ item.moneda }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm !text-right !pr-4">{{ item.netoOR | number
+                :'1.2-2' }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm !text-right !pr-4">{{ item.importeOR | number
+                :'1.2-2' }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm !text-right !pr-4">{{ item.netoDocumento | number
+                :'1.2-2' }}</td>
+              <td class="whitespace-nowrap px-4 py-2 dark:text-white text-sm !text-right !pr-4">{{ item.totalDocuemnto | number
+                :'1.2-2' }}</td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+          </ng-template>
+          <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+          </ng-template>
+        </p-table>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@ export class OrdenReparacionService {
 
   constructor(private http : HttpClient) { }
 
-  getOrdenReparacion(filter : ReporteHistorialFilters, service : number) : Observable<PaginationResponse<BaseResponse<OrdenReparacionList[]>>>{
-    return this.http.post<PaginationResponse<BaseResponse<OrdenReparacionList[]>>>(`${base_url}/OrdenReparacion/${service}`,filter);
+  getOrdenReparacion(filter : ReporteHistorialFilters, service : number) : Observable<BaseResponse<string>>{
+    return this.http.post<BaseResponse<string>>(`${base_url}/Reporte/v2/${service}`,filter);
   }
 }

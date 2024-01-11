@@ -1,18 +1,19 @@
 export interface OrdenReparacionList {
-    numeroOrden: string,
-    numeroPresupuesto: string,
+    id: number,
+    numeroOrden: string, 
     fechaOrden: string,
+    ordenCompra : string, 
     cliente: string,
-    ciaSeguro: string,
     placa: string,
     marca: string,
     modelo: string,
-    motor: string,
     anio: string,
     situacion: string,
     numeroDocumento : string,
-    fechaDocumento : string,
-    ordenCompra : string,   
-    importe : number,
-    moneda : string
+    fechaDocumento : string,      
+    netoOR : number,
+    importeOR : number,
+    moneda : string,
+    netoDocumento : number,
+    totalDocuemnto : number
 }

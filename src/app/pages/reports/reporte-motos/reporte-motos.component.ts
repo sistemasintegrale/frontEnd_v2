@@ -8,7 +8,6 @@ import { Modelo } from 'src/app/interfaces/reporte-historial/modelo';
 import { OrdenReparacion } from 'src/app/interfaces/reporte-historial/or';
 import { Placa } from 'src/app/interfaces/reporte-historial/placa';
 import { ReporteHistorialFilters } from 'src/app/interfaces/reporte-historial/reporte-historial-filters';
-import { ReporteHistorialResponse } from 'src/app/models/reporte-historial/reporte-historial-response';
 import { PaginatorLabelService } from 'src/app/services/custom/paginator-label.service';
 import { OrdenReparacionService } from 'src/app/services/orden-reparacion/orden-reparacion.service';
 import { HistorialService } from 'src/app/services/reports/historial.service';
@@ -33,8 +32,9 @@ export class ReporteMotosComponent {
   public totalReporte: number = 0;
   public desde: number = 0;
   public hasta: number = 10;
+  selectedProduct!: OrdenReparacion;
   service = environment.CONN_NOVAMOTOS;
-  @ViewChild(MatPaginator, { static: true }) paginator !: MatPaginator;
+   
   public cargando: boolean = false;
   public cantidadRequeridaAnt: number = 10;
   public cargandoExcel = false;
@@ -43,12 +43,12 @@ export class ReporteMotosComponent {
     private reporteService: HistorialService,
     private ordenReparacionservice: OrdenReparacionService,
     private fb: FormBuilder,
-    private customPaginatorLabel: PaginatorLabelService,
+    
     private selectService: SelectsService,
     private excelServicev2: Excelv2Service,
   ) { }
   ngOnInit(): void {
-    this.customPaginatorLabel.translateMatPaginator(this.paginator);
+    
 
   }
 
@@ -64,7 +64,7 @@ export class ReporteMotosComponent {
 
   getPaginationData(event: PageEvent): PageEvent {
     if (this.cantidadRequeridaAnt !== event.pageSize) {
-      this.paginator.pageIndex = 0;
+       
       this.desde = 0;
       this.hasta = event.pageSize;
       this.cantidadRequeridaAnt = event.pageSize;
@@ -124,9 +124,7 @@ export class ReporteMotosComponent {
   }
 
   buscar() {
-    this.paginator.pageIndex = 0;
-    this.desde = 0;
-    this.hasta = this.paginator.pageSize;;
+    
     this.cargarReporte();
   }
 
@@ -136,8 +134,8 @@ export class ReporteMotosComponent {
     this.getFilters();
     this.ordenReparacionservice.getOrdenReparacion(this.filters, this.service).subscribe((resp) => {
       debugger;
-      this.reporte = resp.data.data;
-      this.totalReporte = resp.cantidad;
+      this.reporte = JSON.parse(resp.data); 
+      this.cargando = false;
       this.cargando = false;
     });
   }
@@ -203,7 +201,7 @@ export class ReporteMotosComponent {
 
           const data = JSON.parse(resp.data)
           const colums = Object.keys(data[0])
-          this.excelServicev2.exportar('Reporte Historial Autos', `Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`, colums, data, null, 'Reporte', 'Sheet1');
+          this.excelServicev2.exportar('Reporte Historial Motos', `Fecha desde: ${this.filters.fechaDesde}   hasta :${this.filters.fechaHasta}`, colums, data, null, 'Reporte', 'Sheet1');
         }
         else
           Swal.fire(
